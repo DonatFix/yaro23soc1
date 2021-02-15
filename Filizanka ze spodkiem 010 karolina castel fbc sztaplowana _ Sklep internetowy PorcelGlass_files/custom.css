@@ -1,0 +1,35 @@
+/*
+ * Custom code goes here.
+ * A template should always ship with an empty custom.css
+ */
+
+a.product-flags span,
+#product #content .product-flags li {
+-webkit-border-radius: 0px;
+-moz-border-radius: 0px;
+border-radius: 0px;
+}
+
+@media (min-width: 1200px) {
+
+.pl_border_type1 .col-md-9 .page-product-box .bx-wrapper .products .product-miniature {
+width: 218px!important;
+}
+
+.pl_border_type1 .col-md-12 .page-product-box .bx-wrapper .products .product-miniature {
+width: 234.5px!important;
+}
+
+}
+
+@media (min-width: 768px) {
+
+.block-categories.block .block_content ul {
+display: block!important;
+}
+
+.block-categories li span.grower {
+display: none;
+}
+
+}

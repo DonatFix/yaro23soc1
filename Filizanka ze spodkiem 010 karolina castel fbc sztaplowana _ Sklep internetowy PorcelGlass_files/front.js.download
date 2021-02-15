@@ -1,0 +1,53 @@
+/**
+ * x13PMAfterCookieAcceptation() is function which is fired after user click cookie acceptation button
+ * x13PMAfterCookieRejection() is function which is fired after user click cookie rejection button
+ * You can also use $(document).on('x13PMAfterCookieAcceptation/x13PMAfterCookieRejection');
+ */
+
+// function x13PMAfterCookieAcceptation() {}
+// function x13PMAfterCookieRejection() {}
+
+$(function() {
+    var $x13PMCookieBar = $('#x13pmcookiebar');
+    var $x13PMAcceptBtn = $('#x13pmcookiebar-acceptation');
+    var $x13PMRejectBtn = $('#x13pmcookiebar-rejection');
+    var ajaxUrl = $x13PMCookieBar.data('ajax');
+    var token = $x13PMCookieBar.data('token');
+
+    $x13PMAcceptBtn.on('click', function (e) {
+        e.preventDefault();
+        if (typeof x13PMAfterCookieAcceptation === 'function') {
+            x13PMAfterCookieAcceptation();
+            $(document).trigger('x13PMAfterCookieAcceptation');
+        }
+        $.post(ajaxUrl, {
+            'ajax': 1,
+            'token': token,
+            'acceptation': 1
+        }, function (data) {
+            if (!data.hasError) {
+                $x13PMCookieBar.fadeOut();
+            }
+        }, 'json');
+    });
+
+    $x13PMRejectBtn.on('click', function (e) {
+        e.preventDefault();
+        var $a = $(this);
+        if (typeof x13PMAfterCookieRejection === 'function') {
+            x13PMAfterCookieRejection();
+            $(document).trigger('x13PMAfterCookieRejection');
+        }
+
+        $.post(ajaxUrl, {
+            'ajax': 1,
+            'token': token,
+            'acceptation': 0
+        }, function (data) {
+            if (!data.hasError) {
+                $x13PMCookieBar.fadeOut();
+                window.location.href = $a.prop('href');
+            }
+        }, 'json');
+    });
+});
